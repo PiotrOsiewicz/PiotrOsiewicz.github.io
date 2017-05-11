@@ -5,6 +5,7 @@ date:   2017-05-11 10:18:11 +0100
 ---
 
 Hey,
+
 So I thought that it might be a good idea to finally start blogging. I guess that I will keep the atmosphere rather loose in here, however I might shoot a serious post up from time to time.
 
 
