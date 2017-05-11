@@ -1,24 +1,8 @@
-# Libretto - Jekyll Theme
+#PiotrOsiewicz.github.io
 
-Libretto is a responsive one-column Jekyll theme with classic styling and careful typographic details.
+That's my own, *simple* site. Nothing to fancy I reckon but it should get by. 
 
-Based on the [Libretto Wordpress theme](https://wordpress.org/themes/libretto/).
+It's based on Jekyll theme [libretto](https://github.com/ferrolho/jekyll-theme-libretto) by ferrolho. Cheers!
 
-## Install and Test
 
-1. Download or clone the repo
-  - `git clone git@github.com:ferrolho/jekyll-theme-libretto.git`
-2. Enter the folder
-  - `cd jekyll-theme-libretto/`
-3. Start Jekyll server
-  - `jekyll serve --watch`
-4. Access via
-  - http://127.0.0.1:4000/jekyll-theme-libretto/
 
-## Demo
-
-- https://ferrolho.github.io/jekyll-theme-libretto/
-
-## Preview
-
-![Theme preview](http://i.imgur.com/2ZCmoKo.png)
