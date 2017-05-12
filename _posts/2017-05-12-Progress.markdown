@@ -1,0 +1,21 @@
+---
+layout: post
+title:  "Rant on humbleness"
+date:   2017-05-12 22:18:11 +0100
+---
+
+Hey,
+
+It's time for some incoherent rambling. What is progress and how can we measure it as beginners? Should we acknowledge our lack of experience?
+I think answering those questions is kind of tricky. Progress is (amongst other definitions) becoming more proficient at something, be it singing or programming. Every beginner struggles with quantifying their experience - it is *really* hard!
+
+Fear not newbies. If you've ever felt like a dumbass while using scanf *(fuck that shit by the way)* then you have probably progressed at the same time - questions such as "What do I need ampersand for?" have probably went through your mind. Those who took time to google it instead of accepting this as a fact have stumbled upon pointers. Good for them. Don't get me wrong, I'm beginner myself (and I will be for the rest of my life) but I believe that such encouragement might keep someone going. It's really easy to just abandon something altogether due to the lack of visible progress. 
+
+Trust me, you **must** keep going. Looking back, I've felt dumb for the vast majority of my journey with programming. And I've felt bad about feeling dumb - wouldn't call that a pleasant experience. ;) Just embrace it because your adventure is made of every little step that you take. Surely, we remember only the big moments. However, those little steps, improvements, tweaks should not be frowned upon.
+
+How many Google CEO's would we have if only everyone was perfect? 
+Well, a few. But that's not to say that not being at this prestigious position means being somehow worse. Just embrace the fact that you are still learning. Feeling dumb is _integral_ part of the process. 
+
+To answer the initial question - in my opinion progress is not clearly measurable because we evolve constantly.   
+I'll finish this post of with some food for thought. If you were to ask children at kindergarten "Are you a genius?" then you could expect vast majority of the responses to be affirmative. The same question in primary school could yield around 50/50 results. Secondary school? Don't bother, noone will raise a hand. And that's sad. We kill our ability to dream.   
+**Don't** belittle yourself. :)
