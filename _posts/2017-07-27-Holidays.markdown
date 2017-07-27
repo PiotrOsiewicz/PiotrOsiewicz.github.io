@@ -1,0 +1,28 @@
+---
+layout: post
+title:  "Holidays"
+date:   2017-06-21 22:18:11 +0100
+---
+
+Hey,
+So I am officially a grown-up adult - I have turned 20 years old yesterday. It's funny how fast time flies by.  
+Perhaps I should not worry - there is still some time. Or atleast that is what I am being told all the time.  
+
+I have recently started practicing for upcoming Google STEP interviews with people from [**TwitchLearnsProgramming**](https://twitch.tv/twitchlearnsprogramming)(They rock btw!) and I am really enjoying it.  
+Really, I do - I mean, it was kind of stressful at first, but with every interview I am getting ever more confident in my skills.  
+
+Back to the original point - I am going into my second year at uni. And so, I've been told a few times that "there is still time" for me to learn. Take it easy cowboy, eh?  
+I mean, I see where all of this comes from - it's not like majority of programmers start as early (or late - whichever way you chose to put it) as in their freshman year.  
+Still, I am a **special** flower _nope, just kidding_ . I can't really sit around and do nothing (well, I can and I do it to a great success nowadays, but that is not what I mean).  
+Our time is limited and so are the opportunities. Perhaps I will look back at this post one day and mumble "*Oh gosh, was I a goof..*". I am fine with that.  
+
+When it comes to slightly more relevant things: today I have refactored a good chunk of code in TicTacToe. It's available on GitHub - [**take a peek**](https://github.com/PiotrOsiewicz/TicTacToe-C/commit/37ebc586ba5271c94a47b2dd3e0d95349488001f)!  
+It was painful to go through, but that is what this project was for - making mistakes and first steps.  It is still pretty easy to mantain, and that's what I value the most.  
+
+So yep, reading books, trying to improve my CV and praccing for interviews. That's what I do nowadays.  
+Fun? What's that? Haven't heard of that since few years. :P   
+And how do you spend your holidays? Tweet me!
+
+
+Signing off,  
+Peter
