@@ -79,7 +79,7 @@ Someone has (probably) already came up with a better idea than mine, but hey.
 They got it all wrong..
 
 <div style="text-align:center">
-![xkcd-standards](https://imgs.xkcd.com/comics/standards.png)
+<img alt="xkcd-standards" src="https://imgs.xkcd.com/comics/standards.png"/>
 <i>As always, there is relevant xkcd </i>
 </div>
 
