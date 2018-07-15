@@ -78,13 +78,11 @@ issues is to create a tool & bindings that would be:
 Someone has (probably) already came up with a better idea than mine, but hey.
 They got it all wrong..
 
-{:.center}
+<div style="text-align:center">
 ![xkcd-standards](https://imgs.xkcd.com/comics/standards.png)
-* As always, there is relevant xkcd *
+<i>As always, there is relevant xkcd </i>
+</div>
 
 Some of these things probably cancel out, but hey - I'm young, stupid and eager
 to experiment! Let the rockoff begin!
 
-.center {
-	text-align : center;
-}
