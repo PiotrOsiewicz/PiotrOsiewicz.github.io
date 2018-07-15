@@ -75,5 +75,16 @@ issues is to create a tool & bindings that would be:
 * Lightweight - if possible, the impact of logging on the observed program
   itself should be negligible.
 
+Someone has (probably) already came up with a better idea than mine, but hey.
+They got it all wrong..
+
+{:.center}
+![xkcd-standards](https://imgs.xkcd.com/comics/standards.png)
+* As always, there is relevant xkcd *
+
 Some of these things probably cancel out, but hey - I'm young, stupid and eager
 to experiment! Let the rockoff begin!
+
+.center {
+	text-align : center;
+}
