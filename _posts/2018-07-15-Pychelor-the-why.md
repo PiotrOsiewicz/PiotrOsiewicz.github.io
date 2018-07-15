@@ -40,7 +40,7 @@ Debugging such architecture is tricky for a variety of reasons:
 * Raw size of data (regardless of used logging model) and the method of adding
   new information to log file (which is - most of the time - simply appending
   the information to the end of file) makes old data easier to access than new
-  data. Make no mistake - this is **related** to the first point, however - 
+  data. Make no mistake - this is **related** to the first point, however \- 
   while both of these are concerned with the size of a log - the previous argument
   was closely connected with information noise.
 
@@ -53,7 +53,7 @@ Debugging such architecture is tricky for a variety of reasons:
 * Reading through logs can be just as cumbersome - sometimes it's hard to find
   relevant information in the noise of thread IDs, timestamps and all this good
   stuff. Hey, I'm *not* saying these are bad. That's part of logging! However, they
-  are (in my opnion) programmer's best friend when enabled at just right moment -
+  are (in my opnion) programmer's best friend when enabled at just right moment \-
   which is after locating the source of the trouble.
   
 Surprise, surprise - I cannot deal with any of these. Would you expect *that*?
