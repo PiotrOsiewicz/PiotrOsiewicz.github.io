@@ -80,6 +80,7 @@ They got it all wrong..
 
 <div style="text-align:center">
 <img alt="xkcd-standards" src="https://imgs.xkcd.com/comics/standards.png"/>
+<br/>
 <i>As always, there is relevant xkcd </i>
 </div>
 
