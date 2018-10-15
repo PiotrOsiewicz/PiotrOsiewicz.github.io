@@ -30,6 +30,9 @@ translations. It is shitty situation, because:
   I have nothing to say but "sorry". Overall, all translations will be
   rejected. Better yet, I will need to think about some kind of resource system
   to maintain this type of content in my projects.
+  It is also redundant to try to gather OS community around your projects
+  without giving them engaging tasks and actually caring for the project. If
+  I don't visit my github nowadays, no one else will.
 
 
   I'm sorry.
