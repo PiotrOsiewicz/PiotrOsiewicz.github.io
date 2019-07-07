@@ -31,7 +31,7 @@ C preprocessor can:
     - Conditionally remove parts of text file based on preprocessor state - also known as #ifdef, #indef directives.
     - Embed other source files within the source file - or just #include directive.
 2. **Compilation** - translates each translation unit into object files. An object file contains machine instructions. Additionally a compiler might optimize output machine code. Note that the result file is not yet executable at this point - this is responsibility of a linker.
-Compiler structure is generally divided into two parts - *frontend* and *backend*. The former is responsible for parsing the source file and translating parsed code into an intermediate form that's understandable by backend. The latter takes foremenetioned intermediate form, (optionally) optimizes it and generates machine code.
+Compiler structure is generally divided into two parts - *frontend* and *backend*. The former is responsible for parsing the source file and translating parsed code into an intermediate form that's understandable by backend. The latter takes foremenetioned intermediate form, (optionally) optimizes it for given platform and generates machine code. There could also be a middle end between the two forementioned parts - it can optimize code in platform-independent manner (for instance by folding constant literals - statements like `500 + 3` can be resolved to `503` at compile time, thus eliding the computation at run time).
 3. **Linker** - resolves dependencies between translation units that participate in a build process. An example of a dependency between two translation units would be the call to function defined in other .cpp file.
 Linker also produces the final output file. Linker`s input consists of all object files that were produced by the compiler in the preceding step.
 
@@ -43,8 +43,8 @@ Linker also produces the final output file. Linker`s input consists of all objec
 The \#include preprocessor directive includes source file (identified by it\`s first and only argument) into the current source file at the line immediately after the directive (source: cppreference). It is pretty deceptive in a way, because what we see in the source is not what we get - a 5 line .cpp file can be expanded to thousands of lines of actual source code. The contents of included files are compiled like any other code. While it may seem obvious (it is \#include after all, right?) I feel that it is easy to get wrong. Header files should be as tidy and fine-grained as possible.
 
 ## What is inlining all about?
-Inlining a function call means replacing the call instruction with actual contents of a function - thus improving program performance. Of course not every function call can be inlined - for starters current compilers use heuristics to determine whether the call should be inlined, because doing so introduces additional program size overhead. Additionally it is only possible to inline calls to functions whose definition is available at compile time.
-Hence any function call that has to be resolved by linker is impossible to inline.
+Inlining a function call means replacing the call instruction with actual contents of a function - thus improving program performance. Of course not every function call can be inlined - for starters current compilers use heuristics to determine whether the call should be inlined, because doing so introduces additional program size overhead. Additionally it is only possible to inline calls to functions whose definition is present in current translation unit.
+Hence any function call that has to be resolved by linker is impossible to inline (barring LTCG - we will get to that in a second).
 
 \#include was mentioned a few phrases prior to this one, because it (indirectly) allows to inline some of the function calls. For instance it is common practice to put function templates in header files. Since this template lands in the source of it\`s dependents, the compiler can inline the call to the function.
 
@@ -57,7 +57,7 @@ Recall that in order to inline a function call compiler must have access to the 
 Link Time Code Generation is a technique which - as the name suggests - delays code generation part to the link time. Thus various optimizations (among which is inlining function calls) can be applied to whole codebase.
 Contrary to compiler, linker has access to whole codebase - hence it does not have to emit a function call when inlining it would be fine too.
 
-Why would I bring that up though? One of the things that shall be addressed in future parts of this series is dealing with redundancy. Heads up - fighting it might have negative impact on program performance due to the reduced possibilities of inlining function calls. However LTCG allows to mitigate that.
+Why would I bring that up though? One of the things that shall be addressed in future parts of this series is dealing with redundancy. Heads up - fighting it might have negative impact on program performance due to the reduced possibilities of inlining function calls... which is exactly what LTCG is good for. 
 While LCTG should not improve build times substantially (I guess it might actually lead to slight decrease) it is worth employing to reap benefits of good performance at both runtime and build-time.
 
 ## Takeaways
