@@ -98,7 +98,7 @@ int foo(int bar){
 // other.cpp file
 #include "header.h"
 int baz(){
-    return foo(5); // The definition nor address of foo is not known at this point.
+    return foo(5); // Neither the definition nor address of foo is known at this point.
                    // Hence, the call is saved for resolution at link-time.
 }
 ```
