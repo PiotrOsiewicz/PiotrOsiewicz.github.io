@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Reduction of C++ project build time - Templates"
-date:   2019-07-16 21:00:00 +0000
+date:   2019-07-18 19:00:00 +0000
 tags: [ Cpp, build, time, C++, C, templates, template, reduce, optimization]
 ---
 
