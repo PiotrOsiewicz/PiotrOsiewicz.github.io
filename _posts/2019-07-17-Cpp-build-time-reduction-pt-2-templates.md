@@ -169,10 +169,11 @@ There are few caveats with this approach though..
 2. Explicit instantiation is performed beforehand - types of arguments have to be known...
 3. And if you try to fight it by instantiating all known usages of given template in one translation unit, the same TU can quickly become bloated by dependencies that it does not really need (except for explicit template instantiation.. hopefully your headers are fine-grained!). 
 
-Last point is very important - I would advise against compensating for minor losses in multiple translation units by paying a potentially huge cost in one TU. I have once tried to disable implicit instantiations for some template which had 10 or so different argument types. It quickly turned out to not be worth it. 
+Last point is very important - I would advise against compensating for minor losses in multiple translation units by paying a potentially huge cost in one TU. I have once tried to disable implicit instantiations for some single-argument template which has been instantiated with 10 different argument types across whole project. It quickly turned out to not be worth it. 
 
 I must mention though that the first of the listed drawbacks can be remedied by LTCG. I hope you recall that LTCG can help immensely with inlining cross-TU function calls. 
-This approach is not very helpful for library authors though - in case function template is exposed as a part of library interface, there is no possibility of "hiding" the template implementation and improving the build time, because then the library user won't be able to instantiate the template with their own list of arguments.
+
+Template definition erasure is not very helpful for library authors though - in case function template is exposed as a part of library interface, there is no possibility of "hiding" the template implementation and improving the build time, because then the library user won't be able to instantiate the template with their own list of arguments.
 
 ## Extern templates to the rescue
 
