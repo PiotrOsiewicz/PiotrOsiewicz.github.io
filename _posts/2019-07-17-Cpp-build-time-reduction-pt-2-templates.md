@@ -229,7 +229,7 @@ If you are interested in more details, give the following materials a look:
 
 ### That's not a silver bullet!
 There's an issue though - which translation unit will be responsible for instantiating the template? There has to be one. I haven't really found the answer to that question just yet, but the problem of instantiation responsibility is persistent across both definition erasure method and `extern template`. Moreover, what if the template is instantiated in header file that you happen to pull in? 
-Yep, the code can get pretty ugly. But if that's the price to pay.. Personally I would be fine with that. Also, keep in mind that ability to inline the template is lost once again - only for the mighty and glorious LTCG to reclaim it again.
+Yep, the code can get pretty ugly. But if that's the price to pay.. Personally I would be fine with that. Also, keep in mind that ability to inline the instantiated function template is lost once again - only for the mighty and glorious LTCG to reclaim it again.
 
 ## Summary
 To recap, today we went through template instantiation methods and the ways to avoid doing unnecesary work.
