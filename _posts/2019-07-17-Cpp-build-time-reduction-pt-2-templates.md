@@ -167,7 +167,7 @@ There are few caveats with this approach though..
 
 1. The call to instantiated function is no longer a candidate for inlining, since the function body is not known in given translation unit. 
 2. Explicit instantiation is performed beforehand - types of arguments have to be known...
-3. And if you try to fight it by instantiating all known usages of given template in one translation unit, the same TU can quickly become bloated by dependencies that it does not really need. 
+3. And if you try to fight it by instantiating all known usages of given template in one translation unit, the same TU can quickly become bloated by dependencies that it does not really need (except for explicit template instantiation.. hopefully your headers are fine-grained!). 
 
 Last point is very important - I would advise against compensating for minor losses in multiple translation units by paying a potentially huge cost in one TU. I have once tried to disable implicit instantiations for some template which had 10 or so different argument types. It quickly turned out to not be worth it. 
 
