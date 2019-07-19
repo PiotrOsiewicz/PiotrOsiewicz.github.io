@@ -8,17 +8,17 @@ tags: [ Cpp, build, time, C++, C, templates, template, reduce, optimization]
 Hello!
 I hope you were not starving for some build time reduction tips. It's been looong two weeks. In case you've missed out on the last post, it can be found [here]({% post_url 2019-07-03-Cpp-build-time-reduction-pt-1-introduction %}). Give it a go!
 
-We now have all the necessary tools to deal with templates. Before we take them on, let's take a step back and understand what we are dealing with.
+We now have all the necessary tools to deal with one of the build time offenders - templates. Before we take them on, let's take a step back and make up few assumptions.
 
 - Template entities (either class templates or functions) can be thought of as "generators" of entities. It would be wrong to assume that an ordinary function is equal to template definition. Instantiated entity is closer to the plain function than the template definition that was used to create it.
 
 - This post will deal exclusively with function/method templates - class templates costs cannot really be avoided in cases where a full type needs to be known. 
 
-- Instantiated functions are implicitly marked with *inline* specifier. Note that this does not necessarily force compiler to inline all calls to instantiated functions. *inline* simply allows for multiple occurences of the same symbol to exist across many translation units during linking stage (it makes the emitted symbol *weak*).
+Instantiated functions are implicitly marked with *inline* specifier. Note that this does not necessarily force compiler to inline all calls to instantiated functions. *inline* simply allows for multiple occurences of the same symbol to exist across many translation units during linking stage (it makes the emitted symbol *weak*).
 
 ## "And so you were born" - template instantiation methods
 
-While we are at it, let's look into two methods of instantiating templates. These are *implicit* and *explicit* instantiations. Based on my limited programming experience, most of the instantiations are implicit.. which is a shame, because 
+While we are at it, let's look into two methods of instantiating templates. These are *implicit* and *explicit* instantiations. In my experience most of the instantiations are implicit.. which is a shame, because 
 it is easy to get carried away with template madness this way.
 
 ### Implicit instantiation
@@ -72,11 +72,13 @@ template class wrapper<uint64_t>;
 This might not be of much use for your day-to-day work. It will come in handy in just a second.
 
 ## What is wrong with templates, again?
-Templates are wonderful, but in my honest opinion they can impact the build time when used carelessly. Each translation unit that makes use of given template must have a full access to it\`s definition in order to instantiate it (either implicitly or explicitly). Thus, there is a great opportunity for doing redundant work - `mySizeof` might\`ve been cheap to instantiate, but in case of more sophisticated templates it can take quite some time. Since the instantiated functions are weak symbols, N - 1 out of N instantiations for given argument set that's instantiated N times in your whole project should get removed by any decent linker. Congratulations, you have just spent 3 minutes doing nothing but template instantiations. 
+Templates are wonderful, but in my honest opinion they can impact the build time when used carelessly. Each translation unit that makes use of given template must have a full access to it\`s definition in order to use it\`s output for given argument list - as  it *always* has to instantiate it (either implicitly or explicitly).
+Thus, there is a great opportunity for doing redundant work - `mySizeof` might\`ve been cheap to instantiate, but in case of more sophisticated templates it can take quite some time. Since the instantiated functions are weak symbols, N - 1 out of N instantiations for given argument set that's instantiated N times in your whole project should get removed by any decent linker. Congratulations, you have just spent 3 minutes doing nothing but template instantiations. 
 
 The previous paragraph has one blatant lie in it. I wonder whether you've spotted it.
 
 ### The cake...
+Here's the aforementioned lie.
 In some cases the compiler does not need to know the template definition in order to use it. To be precise, the instantiation step can be skipped for N - 1 out of N instantiations for given template argument set. Let's look at how the "vanilla" (non-template) functions are used (usually):
 1. There is a function **declaration** in header file.
 ```cpp
@@ -115,8 +117,6 @@ T identity(T val) {
     return val;
 }
 ```
-*Don't give me slack for not using std::forward, please!*
-
 2. There is a translation unit that wants to use the template.
 ```cpp
 // implementation.cpp
@@ -163,7 +163,7 @@ int baz() {
 Hey.. Doesn't that remind you of an "ordinary function" approach?
 
 ### ... is a lie. 
-There are few caveats with this approach though..
+There are few drawbacks associated with this approach though..
 
 1. The call to instantiated function is no longer a candidate for inlining, since the function body is not known in given translation unit. 
 2. Explicit instantiation is performed beforehand - types of arguments have to be known...
@@ -223,10 +223,7 @@ int baz(int val) {
 }
 ```
 
-Remember my rant about library authors in previous paragraph? Well, `extern template` can be used in code that's not really yours. It has the advantage over removing template definition from header in that the caller is responsible for managing the symbol (it will be left for linker resolution) and not the callee (who has to make the symbol inaccessible and force linker resolution in case of template definition erasure). Hence if you notice that this super-cool-yet-super-slow-to-instantiate-template-from-library is slowing down your build and the instantiations are repetitive across multiple translation units, `extern template` might be a good answer.
-If you are interested in more details, give the following materials a look:
-- [Andre Haupt\`s blog post about extern templates](http://blog.bitwigglers.org/extern-templates/).
-- [cppreference.com entry on class templates (with few words about extern templates)](https://en.cppreference.com/w/cpp/language/class_template).
+Remember my rant about library authors in previous paragraph? Well, `extern template` can be used in code that's not really yours. It\`s advantage over removing template definition from header in that the caller is responsible for managing the symbol (it will be left for linker resolution) and not the callee (who has to make the symbol inaccessible and force linker resolution in case of template definition erasure). Hence if you notice that this super-cool-yet-super-slow-to-instantiate-template-from-library is slowing down your build and the instantiations are repetitive across multiple translation units, `extern template` might be a good answer.
 
 ### That's not a silver bullet!
 There's an issue though - which translation unit will be responsible for instantiating the template? There has to be one. I haven't really found the answer to that question just yet, but the problem of instantiation responsibility is persistent across both definition erasure method and `extern template`. Moreover, what if the template is instantiated in header file that you happen to pull in? 
@@ -238,4 +235,12 @@ Two of the presented methods can be used in different circumstances:
 - Template definition erasure is useful when there are a lot of callers for the instantiated function template, yet the possible domain of instantiation arguments is known beforehand (preferably most of them should be built-in types).
 - `extern template` allows us to specify per-TU intantiation options. It might result in more boilerplate.
 
-While both of them have their pros and cons (and different use cases, which I've just stated) I would lean towards using `extern template`. Definition erasure is a global technique which requires user attention in order to support new type. On the other side of the spectrum, `extern template` is local to the current TU - using it in TU A does not surpress implicit function template instantiation in other TUs, so if a colleague tries to instantiate your template in theirs TU with cool and fancy argument set, they can expect reduced build time performance and not linker resolution error.
+While both of them have their pros and cons (and different use cases, which I've just stated) I would lean towards using `extern template`.
+
+Definition erasure is a global technique which requires user attention in order to support new type. On the other side of the spectrum, `extern template` is local to the current TU - using it in one TU does not surpress implicit function template instantiation in other TUs, so if a colleague tries to instantiate your template in theirs TU with cool and fancy argument set, they can expect reduced build time performance and not linker resolution error.
+
+Stop - hammer time. If you are interested in more details, give the following materials a look:
+- [Andre Haupt\`s blog post about extern templates](http://blog.bitwigglers.org/extern-templates/).
+- [cppreference.com entry on class templates (with few words about extern templates)](https://en.cppreference.com/w/cpp/language/class_template).
+
+That's it for today folks. Have a nice weekend. ;)
