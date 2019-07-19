@@ -222,6 +222,7 @@ int baz(int val) {
     return identity(val);
 }
 ```
+Now the call in `second_user.cpp` shall be resolved at link-time - and it shall use the symbol available in `first_user.cpp`. Keep in mind that there must be at least one instantiation in whole project.
 
 Remember my rant about library authors in previous paragraph? Well, `extern template` can be used in code that's not really yours. It\`s advantage over removing template definition from header in that the caller is responsible for managing the symbol (it will be left for linker resolution) and not the callee (who has to make the symbol inaccessible and force linker resolution in case of template definition erasure). Hence if you notice that this super-cool-yet-super-slow-to-instantiate-template-from-library is slowing down your build and the instantiations are repetitive across multiple translation units, `extern template` might be a good answer.
 
